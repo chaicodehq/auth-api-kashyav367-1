@@ -15,9 +15,31 @@ export async function register(req, res, next) {
   try {
     const { name, email, password } = req.body;
 
-    const userExists = await User.findOne({
-      email: email.toLowerCase()
-    });
+   
+    if (!name) {
+      return res.status(400).json({ error: { message: "Name is required" } });
+    }
+
+    if (!email) {
+      return res.status(400).json({ error: { message: "Email is required" } });
+    }
+
+    if (!password) {
+      return res.status(400).json({ error: { message: "Password is required" } });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({
+        error: { message: "Password must be at least 6 characters" }
+      });
+    }
+
+ 
+    const cleanName = name.trim();
+    const cleanEmail = email.toLowerCase();
+
+  
+    const userExists = await User.findOne({ email: cleanEmail });
 
     if (userExists) {
       return res.status(409).json({
@@ -25,18 +47,22 @@ export async function register(req, res, next) {
       });
     }
 
+
     const user = await User.create({
-      name,
-      email: email.toLowerCase(),
+      name: cleanName,
+      email: cleanEmail,
       password
     });
 
-    return res.status(201).json({ user });
+   
+    const { password: _, ...userObj } = user.toObject();
+
+    return res.status(201).json({ user: userObj });
+
   } catch (error) {
     next(error);
   }
 }
-
 /**
  * TODO: Login user
  *

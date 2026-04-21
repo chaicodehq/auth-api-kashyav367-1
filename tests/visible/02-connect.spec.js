@@ -24,9 +24,8 @@ describe('Test 2: Database Connection', () => {
   describe('connectDB', () => {
     it('should connect to MongoDB with valid URI', async () => {
       // mongoServer = await MongoMemoryServer.create();
-  
-      const uri = " mongodb://localhost:27017/auth_api";
-
+      const uri = "mongodb://localhost:27017/auth_api_test";
+      
       const connection = await connectDB(uri);
 
       expect(connection).toBeDefined();

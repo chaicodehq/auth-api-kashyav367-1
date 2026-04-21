@@ -6,10 +6,9 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
-    "test:win": "set NODE_OPTIONS=--experimental-vm-modules&& jest --runInBand"
-  },
+  "test": "jest",
+  "test:win": "set NODE_ENV=test && set NODE_OPTIONS=--experimental-vm-modules&& jest --runInBand"
+},
   "keywords": [
     "authentication",
     "authorization",
