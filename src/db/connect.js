@@ -8,7 +8,6 @@ import mongoose from 'mongoose';
  * 3. Return mongoose.connection
  */
 
-import mongoose from 'mongoose';
 
 export async function connectDB(uri) {
   if (!uri) {
