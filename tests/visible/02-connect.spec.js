@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { connectDB } from '../../src/db/connect.js';
-// import { MongoMemoryServer } from 'mongodb-memory-server';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
 describe('Test 2: Database Connection', () => {
   let mongoServer;
@@ -23,8 +23,8 @@ describe('Test 2: Database Connection', () => {
 
   describe('connectDB', () => {
     it('should connect to MongoDB with valid URI', async () => {
-      // mongoServer = await MongoMemoryServer.create();
-      const uri = "mongodb://localhost:27017/auth_api_test";
+      mongoServer = await MongoMemoryServer.create();
+      const uri = mongoServer.getUri();
       
       const connection = await connectDB(uri);
 
